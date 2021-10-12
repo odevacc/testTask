@@ -1,5 +1,5 @@
 ## Previev
-![Preview](https://i.ibb.co/fY3szVL/image.png)
+![Preview](https://i.ibb.co/vXRpkJD/image.png)
 
 # Getting Started with Create React App
 
