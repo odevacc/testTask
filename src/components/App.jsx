@@ -8,11 +8,11 @@ import { Container, Grid } from 'semantic-ui-react'
 
 function App() {
   return (
-    <div style={{ background: '#1f1f24', minHeight: '100vh' }}>
+    <div className='wrapper_app'>
       <Container>
-        <div style={{ background: '#e9eaed', minHeight: '98vh' }}>
+        <div className='content_app'>
           <Header />
-          <Grid style={{ marginTop: '3em' }} centered>
+          <Grid className='grid_app' centered>
             <Grid.Row>
               <PassengerControl />
             </Grid.Row>

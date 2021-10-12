@@ -1,38 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Header, Container, Divider, Message, Checkbox, Form } from 'semantic-ui-react'
-import { Form as VForm, Input as VInput, Dropdown as VDropdown  } from 'semantic-ui-react-form-validator'
+import { Button, Header, Container, Divider, Message, Checkbox, Form, Icon } from 'semantic-ui-react'
+import { Form as VForm, Input as VInput, Dropdown as VDropdown } from 'semantic-ui-react-form-validator'
+import s from './Passengers.module.css'
+import { passenger } from '../../utils/passenger';
 
-const passenger = {
-    snilsOrCSM: "",
-    secondName: "",
-    firstName: "",
-    thirdName: "",
-    gender: "",
-    dateOfBirth: "",
-    citizen: "",
-    documentType: "",
-    documentId: "",
-    offer: "",
-    isAgreedtoNotification: false,
-    phoneNumber: "",
-    passengerEmail: ""
-}
+const Passengers = ({ onSubmit, success, error }) => {
 
-const Passengers = (props) => {
-    const {success, error} = props
-    
     const [inputFields, setInputFields] = useState([])
     useEffect(() => {
         setInputFields([passenger])
-    },[])
-    
+    }, [])
+
     const handleAddForm = () => {
-        setInputFields([...inputFields, {...passenger} ]);
+        setInputFields([...inputFields, { ...passenger }]);
     };
 
     const handleRemoveForm = index => {
         const values = [...inputFields];
-        values.splice(index, 1);
+        values.splice(index, 1)
         setInputFields(values);
     };
 
@@ -40,11 +25,11 @@ const Passengers = (props) => {
         setInputFields((prevState) => {
             prevState[index] = { ...prevState[index], [data.name]: data.value ?? data.checked }
             return [...prevState]
-          })
+        })
     }
     const handleSubmit = e => {
         e.preventDefault();
-        props.onSubmit(inputFields)
+        onSubmit(inputFields)
         setInputFields([passenger])
     };
 
@@ -52,13 +37,13 @@ const Passengers = (props) => {
         <Container text>
             <VForm onSubmit={handleSubmit}>
                 {inputFields.map((e, index) => (
-                    <div key={e + index} style={{ textAlign: 'right' }}>
+                    <div key={e + index} className={s.wrapper}>
                         {index > 0 && <Divider />}
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div className={s.head}>
                             <Header size='huge'>Пассажир № {index + 1}</Header>
-                            {inputFields.length > 1 && <Button type='button' onClick={handleRemoveForm} negative style={{ marginBottom: '1em' }}>Удалить пассажира</Button>}
+                            {inputFields.length > 1 && <Button type='button' onClick={() => { handleRemoveForm(index) }} negative ><Icon name='delete' />Удалить пассажира</Button>}
                         </div>
-                        <div style={{ textAlign: 'left' }} >
+                        <div className={s.content} >
 
                             <VInput
                                 label="СНИЛС или номер регистрации ЦСМ"
@@ -67,7 +52,7 @@ const Passengers = (props) => {
                                 onChange={(_, data) => handleChange(index, data)}
                                 value={e.snilsOrCSM}
                             />
-                            
+
                             <Form.Group>
                                 <VInput
                                     label="Фамилия *"
@@ -137,7 +122,7 @@ const Passengers = (props) => {
                                     errorMessages={['Обязательное поле']}
                                     options={[
                                         { key: "russia", text: "Россия", value: "russia" },
-                                        { key: "ukraine", text: "Украина", value: "ukraine"}
+                                        { key: "ukraine", text: "Украина", value: "ukraine" }
                                     ]}
 
                                 />
@@ -155,7 +140,7 @@ const Passengers = (props) => {
                                     validators={['required']}
                                     errorMessages={['Обязательное поле']}
                                     options={[
-                                        { key: "pasp", text: "Паспорт РФ", value: "pasp"}
+                                        { key: "pasp", text: "Паспорт РФ", value: "pasp" }
                                     ]}
 
                                 />
@@ -184,7 +169,7 @@ const Passengers = (props) => {
                                     ]}
                                 />
                             </Form.Group>
-                            <Divider/>
+                            <Divider />
                             <Checkbox
                                 label='Согласен на получение оповещений в случаях чрезвычайных ситуаций на железнодорожном транспорте.'
                                 name="isAgreedtoNotification"
@@ -206,18 +191,18 @@ const Passengers = (props) => {
                                     name="passengerEmail"
                                     value={e.passengerEmail}
                                     onChange={(_, data) => handleChange(index, data)}
-                                    
+
                                 />
                             </Form.Group>
                         </div>
-                        <Button type='button' onClick={handleAddForm} secondary style={{ marginTop: '1em' }}>Добавить пассажира</Button>
+                        <Button type='button' onClick={handleAddForm} secondary><Icon name='plus' /> Добавить пассажира</Button>
                     </div>
                 ))}
 
-                <Button style={{ marginTop: '1em' }} primary>Отправить</Button>
+                <Button inverted color='red'><Icon name='send' />Отправить</Button>
             </VForm>
-            {props.error ? <Message error>Status sumbit: {props.error}</Message> : 
-            props.success ? <Message success>Status sumbit: {props.success}</Message> : null}
+            {error ? <Message error>Status sumbit: {error}</Message> :
+                success ? <Message success>Status sumbit: {success}</Message> : null}
         </Container>
     )
 }

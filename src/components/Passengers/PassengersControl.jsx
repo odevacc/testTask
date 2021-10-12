@@ -4,17 +4,14 @@ import { connect } from 'react-redux'
 import { addPassenger } from '../../store/reducers/passengerReducer'
 
 
-const PassengerControl = (props) => {
-    const {addPassenger, success, error} = props; 
-
+const PassengerControl = ({ addPassenger, success, error }) => {
     const onSubmit = (data) => {
         addPassenger(data)
-        console.log(data)
     }
 
     return (
         <div>
-            <Passengers error={error} success={success} onSubmit={onSubmit}/>
+            <Passengers error={error} success={success} onSubmit={onSubmit} />
         </div>
     )
 }
@@ -26,4 +23,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { addPassenger})(PassengerControl);
+export default connect(mapStateToProps, { addPassenger })(PassengerControl);

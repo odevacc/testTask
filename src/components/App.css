@@ -3,3 +3,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.wrapper_app {
+    background: #1f1f24;
+    min-height: 100vh;
+}
+
+.wrapper_app .content_app {
+    background: #e9eaed; 
+    min-height: 98vh;
+}
+
+.content_app .grid_app {
+    margin-top: 3em;
+}
+

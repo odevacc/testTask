@@ -1,0 +1,12 @@
+.wrapper {
+    text-align: right;
+}
+
+.wrapper .head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper .content {
+    text-align: left;
+}
